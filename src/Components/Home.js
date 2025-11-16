@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./Home.css";
+import About from "./About";
+import Menu from "./Menu";
 
 const recipes = [
   {
@@ -45,61 +47,65 @@ const Home = () => {
   );
 
   return (
-    <div className="homepage">
-      {/* Hero Section */}
-      <section className="hero">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          🍽️ Welcome to <span>RecipeBook</span>
-        </motion.h1>
-        <p>Discover, cook, and enjoy delicious homemade recipes!</p>
+    <>
+      <div className="homepage">
+        {/* Hero Section */}
+        <section className="hero">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            🍽️ Welcome to <span>RecipeBook</span>
+          </motion.h1>
+          <p>Discover, cook, and enjoy delicious homemade recipes!</p>
 
-        {/* Search bar */}
+          {/* Search bar */}
+          <motion.div
+            className="search-bar"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <input
+              type="text"
+              placeholder="Search your favorite recipe..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </motion.div>
+        </section>
+
+        {/* Recipe Cards */}
         <motion.div
-          className="search-bar"
+          className="recipe-grid"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.8 }}
         >
-          <input
-            type="text"
-            placeholder="Search your favorite recipe..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          {filteredRecipes.map((recipe) => (
+            <motion.div
+              className="recipe-card"
+              key={recipe.id}
+              whileHover={{ scale: 1.05 }}
+            >
+              <img src={recipe.image} alt={recipe.name} />
+              <div className="card-content">
+                <h3>{recipe.name}</h3>
+                <p>⏱️ {recipe.time} | 💪 {recipe.difficulty}</p>
+                <button className="view-btn">View Recipe</button>
+              </div>
+            </motion.div>
+          ))}
+
+          {filteredRecipes.length === 0 && (
+            <p className="no-results">No recipes found 😢</p>
+          )}
         </motion.div>
-      </section>
-
-      {/* Recipe Cards */}
-      <motion.div
-        className="recipe-grid"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-      >
-        {filteredRecipes.map((recipe) => (
-          <motion.div
-            className="recipe-card"
-            key={recipe.id}
-            whileHover={{ scale: 1.05 }}
-          >
-            <img src={recipe.image} alt={recipe.name} />
-            <div className="card-content">
-              <h3>{recipe.name}</h3>
-              <p>⏱️ {recipe.time} | 💪 {recipe.difficulty}</p>
-              <button className="view-btn">View Recipe</button>
-            </div>
-          </motion.div>
-        ))}
-
-        {filteredRecipes.length === 0 && (
-          <p className="no-results">No recipes found 😢</p>
-        )}
-      </motion.div>
-    </div>
+      </div>
+      <About />
+      <Menu />
+    </>
   );
 };
 
