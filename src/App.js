@@ -1,21 +1,32 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import About from "./Components/About";
 import Menu from "./Components/Menu";
+import Recipes from "./Components/Recipes";
+import Cart from "./Components/Cart";
+
+import { CartProvider } from "./context/CartContext";
 import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/menu" element={<Menu />} />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+
+      </Router>
+    </CartProvider>
   );
 }
 
