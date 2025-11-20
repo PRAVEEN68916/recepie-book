@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import "./Home.css";
 import About from "./About";
 import Menu from "./Menu";
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -89,26 +91,29 @@ const Home = () => {
             <p className="no-results">No recipes found 😢</p>
           )}
 
-          {!loading &&
-            recipes.map((item) => (
-              <motion.div
-                className="recipe-card"
-                key={item.id}
-                whileHover={{ scale: 1.07, rotate: 1 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <img src={item.image} alt={item.name} />
+        {!loading &&
+  recipes.map((item) => (
+    <motion.div
+      className="recipe-card"
+      key={item.id}
+      whileHover={{ scale: 1.07, rotate: 1 }}
+      transition={{ type: "spring", stiffness: 200 }}
+    >
+      <img src={item.image} alt={item.name} />
 
-                <div className="card-content">
-                  <h3>{item.name}</h3>
-                  <p>
-                    ⏱ {item.cookTimeMinutes} min | 🍴 {item.cuisine}
-                  </p>
+      <div className="card-content">
+        <h3>{item.name}</h3>
+        <p>
+          ⏱ {item.cookTimeMinutes} min | 🍴 {item.cuisine}
+        </p>
 
-                  <button className="view-btn">View Recipe</button>
-                </div>
-              </motion.div>
-            ))}
+        <Link to={`/recipe/${item.id}`}>
+          <button className="view-btn">View Recipe</button>
+        </Link>
+      </div>
+    </motion.div>
+  ))}
+
         </motion.div>
 
       </div>

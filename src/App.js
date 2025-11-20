@@ -7,7 +7,7 @@ import About from "./Components/About";
 import Menu from "./Components/Menu";
 import Recipes from "./Components/Recipes";
 import Cart from "./Components/Cart";
-
+import RecipeDetails from './Components/RecipeDetails';
 import { CartProvider } from "./context/CartContext";
 import "./App.css";
 
@@ -23,6 +23,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
 
       </Router>
