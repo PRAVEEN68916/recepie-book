@@ -45,5 +45,12 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+const [cartCount, setCartCount] = useState(0);
+
+const addToCart = (item) => {
+  setCartItems((prev) => [...prev, item]);
+  setCartCount((c) => c + 1);
+};
+
 
 export const useCart = () => useContext(CartContext);

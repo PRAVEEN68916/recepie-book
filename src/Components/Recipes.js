@@ -4,35 +4,64 @@ import "./Recipes.css";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
 
-  // Fetching from API
+  // Fetch API
   useEffect(() => {
     fetch("https://dummyjson.com/recipes")
       .then((res) => res.json())
       .then((data) => {
-        setRecipes(data.recipes.slice(0, 12)); // limit 12
+        // Add random price because API doesn't provide price
+        const updated = data.recipes.slice(0, 12).map((r) => ({
+          ...r,
+          price: Math.floor(Math.random() * 150) + 100, // ₹100–₹250
+        }));
+        setRecipes(updated);
+        setLoading(false);
       });
   }, []);
 
   return (
     <div className="recipes-page">
-      <h2>Recipes 🍽️</h2>
 
-      <div className="recipes-grid">
-        {recipes.map((item) => (
-          <div className="recipe-card" key={item.id}>
-            <img src={item.image} alt={item.name} />
-
-            <h3>{item.name}</h3>
-            <p>₹{item.calories}</p>
-
-            <button className="add-btn" onClick={() => addToCart(item)}>
-              Add to Cart 🛒
-            </button>
-          </div>
-        ))}
+      {/* Floating GIF Animation */}
+      <div className="floating-gif">
+        <img
+          src="https://media.tenor.com/nf0WsE3-Bl4AAAAM/chef-cooking.gif"
+          alt="Cooking Animation"
+        />
       </div>
+
+      <h2 className="recipes-title">Our Recipes 🍽️</h2>
+
+      {/* Loading Skeleton */}
+      {loading ? (
+        <div className="recipes-grid">
+          {[...Array(8)].map((_, i) => (
+            <div className="recipe-skeleton" key={i}></div>
+          ))}
+        </div>
+      ) : (
+        <div className="recipes-grid">
+          {recipes.map((item) => (
+            <div className="recipe-card fade-in" key={item.id}>
+              <img src={item.image} alt={item.name} className="recipe-img" />
+
+              <h3>{item.name}</h3>
+
+              <p className="recipe-price">₹{item.price}</p>
+
+              <button
+                className="recipe-btn"
+                onClick={() => addToCart(item)}
+              >
+                Add to Cart 🛒
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

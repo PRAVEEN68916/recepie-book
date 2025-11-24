@@ -19,3 +19,70 @@
 .about-page ul li {
   margin-bottom: 6px;
 }
+.about-container {
+  display: flex;
+  gap: 40px;
+  padding: 40px 20px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.about-text h2 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+.about-text h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #ff6b00;
+}
+
+.about-text p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.about-text ul {
+  margin-left: 20px;
+}
+
+.about-text li {
+  margin-bottom: 8px;
+}
+
+/* RIGHT SIDE ANIMATION */
+.about-image img {
+  width: 350px;
+  max-width: 100%;
+  border-radius: 12px;
+  animation: pop 2.5s infinite ease-in-out;
+}
+
+/* Smooth animation */
+@keyframes pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text {
+    max-width: 100%;
+  }
+}

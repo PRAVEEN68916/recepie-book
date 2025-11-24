@@ -5,7 +5,8 @@ import "./Cart.css";
 const Cart = () => {
   const { cart, increaseQty, decreaseQty, removeItem } = useCart();
 
-  const total = cart.reduce((t, item) => t + item.price * item.qty, 0);
+  // Calculate total price: sum of (price × quantity) for all items
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0).toFixed(2);
 
   return (
     <div className="cart-page">
