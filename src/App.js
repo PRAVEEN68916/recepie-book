@@ -1,33 +1,44 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// Components
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
-import About from "./Components/About";
-import Menu from "./Components/Menu";
 import Recipes from "./Components/Recipes";
-import Cart from "./Components/Cart";
 import RecipeDetails from './Components/RecipeDetails';
+import AddRecipe from './Components/AddRecipe';
+import MyRecipes from './Components/MyRecipes';
+import Favorites from './Components/Favorites';
+import MealPlanner from './Components/MealPlanner';
+import ShoppingList from './Components/ShoppingList';
+import About from './Components/About';
+
+// Contexts
 import { CartProvider } from "./context/CartContext";
+import { RecipeProvider } from "./context/RecipeContext";
+
 import "./App.css";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <Navbar />
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
-        </Routes>
-
-      </Router>
-    </CartProvider>
+    <RecipeProvider>
+      <CartProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/add-recipe" element={<AddRecipe />} />
+            <Route path="/my-recipes" element={<MyRecipes />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/meal-planner" element={<MealPlanner />} />
+            <Route path="/shopping-list" element={<ShoppingList />} />
+          </Routes>
+        </Router>
+      </CartProvider>
+    </RecipeProvider>
   );
 }
 

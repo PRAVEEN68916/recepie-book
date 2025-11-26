@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
 
@@ -6,42 +6,18 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-
-    if (existingItem) {
-      setCart(
-        cart.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, qty: cartItem.qty + 1 }
-            : cartItem
-        )
-      );
+    const existing = cart.find(ci => ci.id === item.id);
+    if (existing) {
+      setCart(cart.map(ci => ci.id === item.id ? { ...ci, qty: ci.qty + 1 } : ci));
     } else {
       setCart([...cart, { ...item, qty: 1 }]);
     }
   };
 
-  const removeItem = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
-  };
+  const removeItem = (id) => setCart(cart.filter(i => i.id !== id));
 
-  const increaseQty = (id) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id ? { ...item, qty: item.qty + 1 } : item
-      )
-    );
-  };
-
-  const decreaseQty = (id) => {
-    setCart(
-      cart.map((item) =>
-        item.id === id && item.qty > 1
-          ? { ...item, qty: item.qty - 1 }
-          : item
-      )
-    );
-  };
+  const increaseQty = (id) => setCart(cart.map(i => i.id === id ? { ...i, qty: i.qty + 1 } : i));
+  const decreaseQty = (id) => setCart(cart.map(i => i.id === id ? { ...i, qty: Math.max(1, i.qty - 1) } : i));
 
   return (
     <CartContext.Provider value={{ cart, addToCart, removeItem, increaseQty, decreaseQty }}>
@@ -51,9 +27,7 @@ export const CartProvider = ({ children }) => {
 };
 
 export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
+  const ctx = useContext(CartContext);
+  if (!ctx) throw new Error('useCart must be used within CartProvider');
+  return ctx;
 };

@@ -1,0 +1,232 @@
+.recipe-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(255, 112, 67, 0.3);
+}
+
+.recipe-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.recipe-card-img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.recipe-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.recipe-card:hover .recipe-card-img {
+  transform: scale(1.08);
+}
+
+/* Favorite Button */
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.15);
+  background: white;
+}
+
+.favorite-btn.active {
+  animation: heartBeat 0.5s;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.3); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.25); }
+}
+
+/* Custom Badge */
+.custom-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Content */
+.recipe-card-content {
+  padding: 20px;
+}
+
+.recipe-card-title {
+  font-size: 1.3rem;
+  color: #e65100;
+  margin-bottom: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  min-height: 50px;
+}
+
+.recipe-card-meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.recipe-cuisine,
+.recipe-dietary {
+  font-size: 0.9rem;
+  color: #5d4037;
+  margin: 5px 0;
+}
+
+.recipe-difficulty {
+  margin: 8px 0;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+
+.difficulty-badge.easy {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+}
+
+.difficulty-badge.medium {
+  background: linear-gradient(135deg, #ff9800, #ffa726);
+}
+
+.difficulty-badge.hard {
+  background: linear-gradient(135deg, #f44336, #ef5350);
+}
+
+/* Card Actions */
+.recipe-card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ff7043, #ff5722);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  box-shadow: 0 3px 10px rgba(255, 112, 67, 0.3);
+}
+
+.view-btn:hover {
+  background: linear-gradient(135deg, #ff5722, #e64a19);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 112, 67, 0.5);
+}
+
+.delete-btn {
+  padding: 10px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .recipe-card-img {
+    height: 200px;
+  }
+
+  .recipe-card-title {
+    font-size: 1.1rem;
+    min-height: auto;
+  }
+
+  .recipe-card-content {
+    padding: 15px;
+  }
+
+  .meta-item {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .recipe-card-img {
+    height: 180px;
+  }
+
+  .recipe-card-title {
+    font-size: 1rem;
+  }
+
+  .favorite-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+}

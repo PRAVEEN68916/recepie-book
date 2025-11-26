@@ -1,124 +1,139 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import "./Home.css";
-import About from "./About";
-import Menu from "./Menu";
 import { Link } from "react-router-dom";
-
+import { useRecipes } from "../context/RecipeContext";
+import RecipeCard from "./RecipeCard";
+import "./Home.css";
 
 const Home = () => {
   const [search, setSearch] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { customRecipes } = useRecipes();
 
-  // 🔥 API Fetch function
-  const fetchRecipes = async (query) => {
-    setLoading(true);
-
-    try {
-      const res = await fetch(`https://dummyjson.com/recipes/search?q=${query}`);
-      const data = await res.json();
-      setRecipes(data.recipes || []);
-    } catch (err) {
-      console.error(err);
-    }
-
-    setLoading(false);
-  };
-
-  // 🔥 Auto-search when user types
+  // Fetch recipes from API
   useEffect(() => {
-    if (search.trim() === "") {
-      // default items when search is empty
-      fetch("https://dummyjson.com/recipes?limit=4")
-        .then((res) => res.json())
-        .then((data) => setRecipes(data.recipes));
-      return;
-    }
+    const fetchRecipes = async () => {
+      setLoading(true);
+      try {
+        const query = search.trim();
+        const url = query 
+          ? `https://dummyjson.com/recipes/search?q=${query}`
+          : 'https://dummyjson.com/recipes?limit=8';
+        
+        const res = await fetch(url);
+        const data = await res.json();
+        setRecipes(data.recipes || []);
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+      }
+      setLoading(false);
+    };
 
-    const delay = setTimeout(() => {
-      fetchRecipes(search);
-    }, 600);
-
-    return () => clearTimeout(delay);
+    const timer = setTimeout(fetchRecipes, 300);
+    return () => clearTimeout(timer);
   }, [search]);
 
   return (
     <>
-      <div className="homepage">
-
-        {/* HERO SECTION */}
+      <div className="home">
+        {/* Hero Section */}
         <section className="hero">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
+          <h1 className="hero-title">
             🍽️ Welcome to <span>RecipeBook</span>
-          </motion.h1>
+          </h1>
+          <p className="hero-subtitle">
+            Discover, Create, and Enjoy Delicious Recipes from Around the World!
+          </p>
 
-          <p>Discover, cook, and enjoy delicious homemade recipes!</p>
-
-          {/* SEARCH BAR */}
-          <motion.div
-            className="search-bar"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
+          {/* Search Bar */}
+          <div className="search-bar">
             <input
               type="text"
-              placeholder="Search anything... (e.g., cake, biryani, pasta)"
+              placeholder="Search recipes... (e.g., pasta, cake, biryani)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-          </motion.div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="quick-actions">
+            <Link to="/add-recipe" className="action-btn">
+              ➕ Add Recipe
+            </Link>
+            <Link to="/meal-planner" className="action-btn">
+              📅 Plan Meals
+            </Link>
+            <Link to="/favorites" className="action-btn">
+              ❤️ Favorites
+            </Link>
+            <Link to="/shopping-list" className="action-btn">
+              🛒 Shopping List
+            </Link>
+          </div>
         </section>
 
-        {/* AVAILABLE ITEMS SECTION */}
-        <h2 className="section-title">Available Items ⭐</h2>
-
-        <motion.div
-          className="recipe-grid"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-
-          {loading && <p className="loading-text">Loading...</p>}
-
+        {/* Featured Recipes Section */}
+        <section className="section">
+          <h2 className="section-title">Featured Recipes ⭐</h2>
+          
+          {loading && <p className="loading-text">Loading recipes...</p>}
+          
           {!loading && recipes.length === 0 && (
             <p className="no-results">No recipes found 😢</p>
           )}
 
-        {!loading &&
-  recipes.map((item) => (
-    <motion.div
-      className="recipe-card"
-      key={item.id}
-      whileHover={{ scale: 1.07, rotate: 1 }}
-      transition={{ type: "spring", stiffness: 200 }}
-    >
-      <img src={item.image} alt={item.name} />
+          <div className="recipe-grid">
+            {recipes.map((recipe) => (
+              <RecipeCard key={recipe.id} recipe={recipe} />
+            ))}
+          </div>
+        </section>
 
-      <div className="card-content">
-        <h3>{item.name}</h3>
-        <p>
-          ⏱ {item.cookTimeMinutes} min | 🍴 {item.cuisine}
-        </p>
+        {/* Custom Recipes Section */}
+        {customRecipes.length > 0 && (
+          <section className="section">
+            <div className="section-header">
+              <h2 className="section-title">Your Custom Recipes 👨‍🍳</h2>
+              <Link to="/my-recipes" className="view-all-btn">
+                View All →
+              </Link>
+            </div>
+            
+            <div className="recipe-grid">
+              {customRecipes.slice(0, 4).map((recipe) => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          </section>
+        )}
 
-        <Link to={`/recipe/${item.id}`}>
-          <button className="view-btn">View Recipe</button>
-        </Link>
+        {/* Features Section */}
+        <section className="features-section">
+          <h2 className="section-title">Why RecipeBook? ✨</h2>
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">📝</div>
+              <h3>Create Custom Recipes</h3>
+              <p>Add your own recipes with ingredients, instructions, and photos</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">❤️</div>
+              <h3>Save Favorites</h3>
+              <p>Keep track of your favorite recipes in one place</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">📅</div>
+              <h3>Meal Planning</h3>
+              <p>Plan your weekly meals and stay organized</p>
+            </div>
+            <div className="feature-card">
+              <div className="feature-icon">🛒</div>
+              <h3>Shopping Lists</h3>
+              <p>Generate shopping lists from your recipes</p>
+            </div>
+          </div>
+        </section>
       </div>
-    </motion.div>
-  ))}
-
-        </motion.div>
-
-      </div>
-      <About/>
-      <Menu/>
     </>
   );
 };

@@ -1,29 +1,46 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const { cart } = useCart();
 
-  return (
-    <nav className="navbar">
-      <div className="nav-logo">🍽️ RecipeBook</div>
+    // Calculate total cart items
+    const cartCount = cart.reduce((total, item) => total + item.qty, 0);
 
-      <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-        <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/menu" onClick={() => setMenuOpen(false)}>Menu</Link>
-        <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-        
-        {/* NEW LINKS */}
-        <Link to="/recipes" onClick={() => setMenuOpen(false)}>Recipes</Link>
-        <Link to="/cart" onClick={() => setMenuOpen(false)}>Cart 🛒</Link>
-      </div>
+    return (
+        <nav className="navbar">
+            <Link to="/" className="nav-logo">
+                🍽️ RecipeBook
+            </Link>
 
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-        <span></span><span></span><span></span>
-      </div>
-    </nav>
-  );
+            <div className={`nav-links ${menuOpen ? "active" : ""}`}>
+                <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+                <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+
+                <Link to="/recipes" onClick={() => setMenuOpen(false)}>All Recipes</Link>
+                <Link to="/my-recipes" onClick={() => setMenuOpen(false)}>My Recipes</Link>
+                <Link to="/add-recipe" onClick={() => setMenuOpen(false)}>Add Recipe</Link>
+                {/* <Link to="/favorites" onClick={() => setMenuOpen(false)}>Favorites</Link> */}
+                {/* <Link to="/meal-planner" onClick={() => setMenuOpen(false)}>Meal Plan</Link> */}
+                <Link to="/shopping-list" onClick={() => setMenuOpen(false)}>Shopping</Link>
+                <Link to="/cart" onClick={() => setMenuOpen(false)} className="cart-link">
+                    🛒 Cart {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+                </Link>
+            </div>
+
+            <div
+                className={`hamburger ${menuOpen ? "open" : ""}`}
+                onClick={() => setMenuOpen(!menuOpen)}
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    );
 };
 
 export default Navbar;
