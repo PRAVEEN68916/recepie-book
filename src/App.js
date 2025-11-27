@@ -18,6 +18,7 @@ import { CartProvider } from "./context/CartContext";
 import { RecipeProvider } from "./context/RecipeContext";
 
 import "./App.css";
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/meal-planner" element={<MealPlanner />} />
             <Route path="/shopping-list" element={<ShoppingList />} />
           </Routes>
+          <Footer />
         </Router>
       </CartProvider>
     </RecipeProvider>

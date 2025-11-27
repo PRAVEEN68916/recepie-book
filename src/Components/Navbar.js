@@ -13,7 +13,7 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <Link to="/" className="nav-logo">
-                🍽️ RecipeBook
+                 RecipeBook
             </Link>
 
             <div className={`nav-links ${menuOpen ? "active" : ""}`}>
@@ -26,9 +26,9 @@ const Navbar = () => {
                 {/* <Link to="/favorites" onClick={() => setMenuOpen(false)}>Favorites</Link> */}
                 {/* <Link to="/meal-planner" onClick={() => setMenuOpen(false)}>Meal Plan</Link> */}
                 <Link to="/shopping-list" onClick={() => setMenuOpen(false)}>Shopping</Link>
-                <Link to="/cart" onClick={() => setMenuOpen(false)} className="cart-link">
+                {/* <Link to="/cart" onClick={() => setMenuOpen(false)} className="cart-link">
                     🛒 Cart {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-                </Link>
+                </Link> */}
             </div>
 
             <div

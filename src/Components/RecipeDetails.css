@@ -419,6 +419,7 @@
 
 .modal-btn.secondary:hover {
   background: #e0e0e0;
+  transform: translateY(-2px);
 }
 
 /* Loading & Error */
@@ -522,3 +523,13 @@
     font-size: 1rem;
   }
 }
+.recipe-details-wrapper {
+  max-width: 900px;   /* Adjust size (try 800px or 700px for smaller UI) */
+  margin: 0 auto;     /* Center on page */
+  padding: 20px;
+  transform: scale(0.92); /* Shrinks whole UI slightly */
+  transform-origin: top center;
+}
+
+/* If you want even smaller, try this: */
+/* transform: scale(0.85); */

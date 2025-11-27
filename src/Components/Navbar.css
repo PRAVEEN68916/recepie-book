@@ -2,19 +2,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+ background: transparent;
+ backdrop-filter: blur(10px);
   padding: 15px 30px;
   color: white;
   position: sticky;
   top: 0;
   z-index: 1000;
+  height: 55px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .nav-logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: white;
+  color: rgba(238, 60, 6, 0.911);
   text-decoration: none;
   transition: transform 0.3s;
 }
@@ -30,7 +32,7 @@
 }
 
 .nav-links a {
-  color: white;
+  color: rgb(13, 13, 14);
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s;
