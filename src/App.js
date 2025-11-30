@@ -1,29 +1,39 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
-// Components
 import Navbar from "./Components/Navbar";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
 import Recipes from "./Components/Recipes";
-import RecipeDetails from './Components/RecipeDetails';
-import AddRecipe from './Components/AddRecipe';
-import MyRecipes from './Components/MyRecipes';
-import Favorites from './Components/Favorites';
-import MealPlanner from './Components/MealPlanner';
-import ShoppingList from './Components/ShoppingList';
-import About from './Components/About';
-import Contact from './Components/Contact';
-import Footer from './Components/Footer';
+import RecipeDetails from "./Components/RecipeDetails";
+import AddRecipe from "./Components/AddRecipe";
+import MyRecipes from "./Components/MyRecipes";
+import Favorites from "./Components/Favorites";
+import MealPlanner from "./Components/MealPlanner";
+import ShoppingList from "./Components/ShoppingList";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Footer from "./Components/Footer";
 
-// Contexts
 import { CartProvider } from "./context/CartContext";
 import { RecipeProvider } from "./context/RecipeContext";
+import { AuthProvider } from "./Components/AuthContext";   // ✅ FIXED: IMPORTED
 
 import "./App.css";
 import Footer from './Components/Footer';
 
-function App() {
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function Layout() {
+  const location = useLocation();
+   const hideLayout = ["/login", "/signup"].includes(location.pathname.toLowerCase());
+
   return (
     <RecipeProvider>
       <CartProvider>
@@ -50,5 +60,3 @@ function App() {
     </RecipeProvider>
   );
 }
-
-export default App;

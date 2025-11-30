@@ -17,7 +17,6 @@ const Navbar = () => {
             </Link>
 
             <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-  <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
 
                 <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                 <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
@@ -30,6 +29,7 @@ const Navbar = () => {
                 <Link to="/shopping-list" onClick={() => setMenuOpen(false)}>Shopping</Link>
                 {/* <Link to="/cart" onClick={() => setMenuOpen(false)} className="cart-link">
                     🛒 Cart {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+                </Link> */}
                 </Link> */}
             </div>
 
