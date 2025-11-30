@@ -17,12 +17,14 @@ const Navbar = () => {
             </Link>
 
             <div className={`nav-links ${menuOpen ? "active" : ""}`}>
+  <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+
                 <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
                 <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-
+                <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
                 <Link to="/recipes" onClick={() => setMenuOpen(false)}>All Recipes</Link>
                 <Link to="/my-recipes" onClick={() => setMenuOpen(false)}>My Recipes</Link>
-                <Link to="/add-recipe" onClick={() => setMenuOpen(false)}>Add Recipe</Link>
+                {/* <Link to="/add-recipe" onClick={() => setMenuOpen(false)}>Add Recipe</Link> */}
                 {/* <Link to="/favorites" onClick={() => setMenuOpen(false)}>Favorites</Link> */}
                 {/* <Link to="/meal-planner" onClick={() => setMenuOpen(false)}>Meal Plan</Link> */}
                 <Link to="/shopping-list" onClick={() => setMenuOpen(false)}>Shopping</Link>
