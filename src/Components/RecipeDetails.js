@@ -7,12 +7,12 @@ import "./RecipeDetails.css";
 const RecipeDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { 
-    customRecipes, 
-    toggleFavorite, 
-    isFavorite, 
+  const {
+    customRecipes,
+    toggleFavorite,
+    isFavorite,
     addToShoppingList,
-    addToMealPlan 
+    addToMealPlan
   } = useRecipes();
 
   const [recipe, setRecipe] = useState(null);
@@ -248,7 +248,7 @@ const RecipeDetails = () => {
                   </select>
                 </div>
               </div>
-
+             
               <div className="modal-actions">
                 <button className="modal-btn primary" onClick={handleAddToMealPlan}>
                   Add to Plan

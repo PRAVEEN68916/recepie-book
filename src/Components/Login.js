@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaUser, FaLock, FaHome } from 'react-icons/fa';
+import { FaUser, FaLock} from 'react-icons/fa';
+import { GrHome } from "react-icons/gr";
+
 
 function Login() {
   const [identifier, setIdentifier] = useState(''); // email or phone
@@ -71,7 +73,7 @@ function Login() {
               className="btn btn-light shadow-sm"
               onClick={() => navigate('/')}
             >
-              <FaHome size={18} />
+              <GrHome size={18} />
             </button>
           </div>
 

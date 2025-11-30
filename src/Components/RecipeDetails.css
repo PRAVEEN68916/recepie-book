@@ -40,7 +40,7 @@
 }
 
 .recipe-details-img {
-  width: auto;
+  width: 110%;
   border: 2px solid #e27329;
   height: 100%;
   object-fit: cover;
