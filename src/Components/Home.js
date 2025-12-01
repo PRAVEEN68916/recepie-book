@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useRecipes } from "../context/RecipeContext";
 import RecipeCard from "./RecipeCard";
 import "./Home.css";
+import Contact from "./Contact";
 
 const sliderImages = [
   "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg", // pasta
@@ -190,6 +191,7 @@ const Home = () => {
             </div>
           </div>
         </section>
+         <Contact/>
       </div>
     </>
   );

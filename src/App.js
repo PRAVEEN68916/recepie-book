@@ -35,8 +35,9 @@ function ScrollToTop() {
 
 function Layout() {
   return (
-    <>
-      <Navbar />
+    
+<>
+  <Navbar />
 
       <ScrollToTop />
 

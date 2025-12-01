@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
-import "./Navbar.css";
+import "./Navbar.css"
+import logo from "../Images/logo.png";
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const { cart } = useCart();
+    // removed cart usage for now (re-enable when showing cart badge)
 
     return (
         <nav className="navbar">
             <Link to="/" className="nav-logo">
-                <video playsInline loop style={{ width: "50px" }} autoPlay muted>
-                    <source src="https://cdnl.iconscout.com/lottie/premium/preview-watermark/recipe-book-animation-gif-download-11163341.mp4" type="video/mp4" />
-                </video>RecipeBook
+                <img src={logo} alt="img" style={{width:'20px',height:'20px'}}></img>
+                
+                RecipeBook
             </Link>
 
             <div className={`nav-links ${menuOpen ? "active" : ""}`}>
